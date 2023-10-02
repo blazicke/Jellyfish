@@ -49,21 +49,16 @@ void drawOneString(int maxLength, float segmentLength, PGraphics canvas, String 
       drawBlob(makeBlob(p.x, p.y, floor(random(GI.minDotSize, GI.maxDotSize)), 8), canvas, color(c));
     }
   } else if (type == "lines") {
-    float l = points.size();
-    float tentacleWeight = 10;
-    float diff = tentacleWeight/l;
+ 
     canvas.beginDraw();
     canvas.stroke(c, 10);
     canvas.noFill();
-    canvas.strokeWeight(300);
+    canvas.strokeWeight(2);
     canvas.strokeCap(ROUND);
     canvas.beginShape();
-    for (int i = 0; i < points.size()-2; i++) {
+    for (int i = 0; i < points.size(); i++) {
       PVector p1 = points.get(i);
-      PVector p2 = points.get(i+1);
-      canvas.line(p1.x, p1.y, p2.x, p2.y);
-      tentacleWeight = tentacleWeight - diff;
-      canvas.strokeWeight(tentacleWeight);
+      canvas.curveVertex(p1.x, p1.y);
     }
     canvas.endShape();
     canvas.noStroke();

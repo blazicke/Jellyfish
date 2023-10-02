@@ -44,16 +44,13 @@ class JF extends PVector {
     float step = PI/20;
     float localX = 0;
     float localY = 0;
-    float bottomBorderHelper = 0;
-    for (float i = PI; i<PI*3+0.001; i+= step) {
+    for (float i = PI-0.001; i<PI*3+0.001; i+= step) {
       if (i<TWO_PI) {
         float noise = map(noise(abs(PI-i)), 0, 1, 1, 1.2)* scale;
         localX = cos(i)*w * noise;
         localY = sin(i)*h * noise;
       } else {
-        localX = cos(i)*w;
-        localY = sin(bottomBorderHelper)*4;
-        bottomBorderHelper+=0.5;
+        localY = 0;
       }
       PVector p = new PVector(localX, localY).rotate(theta);
       p.x+=x;
@@ -155,7 +152,7 @@ class JF extends PVector {
     fill.endDraw();
     for (float i = 1; i>0; i-=0.2) {
       drawHeadShape(createHeadShape(i), fill, GI.getRandomColor2(GI.sunPalette(),c), false);
-      if (i==1 || i==0.8) {
+      if (i>0.7) {
         ArrayList<PVector> shape = createHeadShape(i+0.1);
         for (PVector p : shape) {
           drawBlob(makeBlob(p.x, p.y, floor(random(4, 6)), 8), fill, color(360, 0, 100));
@@ -256,21 +253,16 @@ class JF extends PVector {
       }
     } else if (type == "lines") {
 
-      float l = tentacle.size();
-      float tentacleWeight = 2;
-      float diff = tentacleWeight/l;
+      float tentacleWeight = 1;
       canvas.beginDraw();
       canvas.stroke(c);
       canvas.noFill();
       canvas.strokeWeight(tentacleWeight);
       canvas.strokeCap(ROUND);
       canvas.beginShape();
-      for (int i = 0; i < tentacle.size()-2; i++) {
+      for (int i = 0; i < tentacle.size(); i++) {
         PVector p1 = tentacle.get(i);
-        PVector p2 = tentacle.get(i+1);
-        canvas.line(p1.x, p1.y, p2.x, p2.y);
-        tentacleWeight = tentacleWeight - diff;
-        canvas.strokeWeight(tentacleWeight);
+        canvas.curveVertex(p1.x, p1.y);
       }
       canvas.endShape();
       canvas.noStroke();

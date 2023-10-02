@@ -6,15 +6,15 @@ class GlobalInfo { //<>//
 
   GlobalInfo() {
     padding = 50;
-    minJFNum = 3;
-    maxJFNum = 10;
+    minJFNum = 20;
+    maxJFNum = 40;
     minDotSize = 2;
-    maxDotSize = 3;
-    minHeadSize = 50;
-    maxHeadSize = 100;
+    maxDotSize = 2;
+    minHeadSize = 20;
+    maxHeadSize = 80;
     minTentacleLength = 600;
     maxTentacleLength = 1000;
-    bgLines = 000;
+    bgLines = 5000;
     paletteJellyfish = createPalette(color(35, 57, 95), color(55, 47, 95), 8);
     paletteSea = createSeaPalette();
   }
